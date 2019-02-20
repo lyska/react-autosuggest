@@ -352,9 +352,15 @@ export default class Autosuggest extends Component {
     this.updateHighlightedSuggestion(this.props.multiSection ? 0 : null, 0);
   };
 
+  focusInput = () => {
+    if (this.input && this.input.focus) {
+      this.input.focus();
+    }
+  }
+
   onDocumentMouseUp = () => {
     if (this.pressedSuggestion && !this.justSelectedSuggestion) {
-      this.input.focus();
+      this.focusInput()
     }
     this.pressedSuggestion = null;
   };
@@ -419,7 +425,7 @@ export default class Autosuggest extends Component {
     }
 
     if (focusInputOnSuggestionClick === true) {
-      this.input.focus();
+      this.focusInput()
     } else {
       this.onBlur();
     }
@@ -467,7 +473,7 @@ export default class Autosuggest extends Component {
   onSuggestionTouchMove = () => {
     this.justSelectedSuggestion = false;
     this.pressedSuggestion = null;
-    this.input.focus();
+    this.focusInput();
   };
 
   itemProps = ({ sectionIndex, itemIndex }) => {
@@ -556,7 +562,7 @@ export default class Autosuggest extends Component {
       },
       onBlur: event => {
         if (this.justClickedOnSuggestionsContainer) {
-          this.input.focus();
+          this.focusInput()
           return;
         }
 
@@ -581,10 +587,10 @@ export default class Autosuggest extends Component {
           ...(highlightFirstSuggestion
             ? {}
             : {
-                highlightedSectionIndex: null,
-                highlightedSuggestionIndex: null,
-                highlightedSuggestion: null
-              }),
+              highlightedSectionIndex: null,
+              highlightedSuggestionIndex: null,
+              highlightedSuggestion: null
+            }),
           valueBeforeUpDown: null,
           isCollapsed: !shouldRender
         });
